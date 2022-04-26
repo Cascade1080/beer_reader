@@ -21,10 +21,33 @@ pint2 = pint[pint["Unnamed: 2"].str.contains('1/2')==False] #removes all 1/2's f
 pint2 = pint2.astype({'Unnamed: 3':'int'}) #converts column values from object to int
 pint2["BBLS"] = pint2["Unnamed: 3"]*0.00403226
 
+mug = df[df['Unnamed: 2'].str.contains('Mug')]
+mug = mug.astype({'Unnamed: 3':'int'})
+mug["BBLS"] = mug['Unnamed: 3']*0.00554435
 
+ptr = df[df['Unnamed: 2'].str.contains('PTR')]
+ptr = ptr.astype({'Unnamed: 3':'int'})
+ptr["BBLS"] = ptr['Unnamed: 3']*0.01612903
+
+thirtytwo = df[df['Unnamed: 2'].str.contains('32oz')]
+thirtytwo = thirtytwo.astype({'Unnamed: 3':'int'})
+thirtytwo["BBLS"] = thirtytwo['Unnamed: 3']*0.00806452
+
+sixtyfour = df[df['Unnamed: 2'].str.contains('64oz')]
+sixtyfour = sixtyfour.astype({'Unnamed: 3':'int'})
+sixtyfour["BBLS"] = sixtyfour['Unnamed: 3']*0.01612903
+
+total = df[df['Unnamed: 2'].str.contains('Tot')]
 
 #print(df.columns) #prints the names of the columns in the DataFrame
-print(pint2)
-print(half)
-#print(half.dtypes)
+#print(half)
+#print(pint2)
+#print(mug)
+#print(ptr)
+#print(thirtytwo)
+#print(sixtyfour)
+print(total)
+#print(mug.dtypes)
 #print(half['Unnamed: 3']*2)
+
+#print(pint2.sum(axis = 0, skipna = True))
