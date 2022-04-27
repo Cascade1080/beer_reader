@@ -17,9 +17,21 @@ half = half.astype({'Unnamed: 3':'int'}) #converts the 'Unnamed: 3' column into 
 half["BBLS"] = half["Unnamed: 3"]*0.00201613 #multiplies and creates the column 'bbls'
 
 pint = df[df['Unnamed: 2'].str.contains('Pint')] #creates DataFrame of just Pints
-pint2 = pint[pint["Unnamed: 2"].str.contains('1/2')==False] #removes all 1/2's from Pint list
-pint2 = pint2.astype({'Unnamed: 3':'int'}) #converts column values from object to int
-pint2["BBLS"] = pint2["Unnamed: 3"]*0.00403226
+
+PT = df[df['Unnamed: 2'].str.contains('PT')] #creates DataFrame with 'PT' in the row
+removesPTR = PT[PT['Unnamed: 2'].str.contains('PTR')==False] #creates DataFrame removing rows with 'PTR'
+
+pnt = df[df['Unnamed: 2'].str.contains('Pnt')]#creates DataFrame with 'Pnt' in the rows
+
+pint3 = pd.concat([pint, removesPTR]) #concats pint and removesPTR
+pintF = pd.concat([pint3, pnt]) #concats pnt and pint3
+pintF = pintF[pintF["Unnamed: 2"].str.contains('1/2')==False] #removes all 1/2's from Pint DataFrame
+
+pintF = pintF.astype({'Unnamed: 3':'int'}) #converts column values from object to int
+pintF["BBLS"] = pintF["Unnamed: 3"]*0.00403226
+pintF = pintF[pintF['Unnamed: 3'].between(0,1000)]
+pintF = pintF.sort_values(by=['Unnamed: 3'], ascending=False)
+pintTotal = pintF.sum(axis = 0, skipna = True)
 
 mug = df[df['Unnamed: 2'].str.contains('Mug')]
 mug = mug.astype({'Unnamed: 3':'int'})
@@ -41,12 +53,15 @@ total = df[df['Unnamed: 2'].str.contains('Tot')]
 
 #print(df.columns) #prints the names of the columns in the DataFrame
 #print(half)
-#print(pint2)
+print(pintF)
+print(pintTotal)
+#print(removesPTR)
+#print(pnt)
 #print(mug)
 #print(ptr)
 #print(thirtytwo)
 #print(sixtyfour)
-print(total)
+#print(total)
 #print(mug.dtypes)
 #print(half['Unnamed: 3']*2)
 
