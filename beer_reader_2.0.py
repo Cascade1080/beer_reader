@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv('Total Beer Sales April.pmx.csv') #defines csv file
+df = pd.read_csv('Total Beer Sales March.pmx.csv') #defines csv file
 df = df.dropna() #drops all NaN entries
 del df['1 - Frothy Beard Brewing 1401 Sam Rittenburg Blvd.  '] #delets the first colulmn
 df.drop('Unnamed: 1', inplace=True, axis =1) #deletes unnamed column 1
@@ -61,11 +61,31 @@ sixtyfour["BBLS"] = sixtyfour['Unnamed: 3']*0.01612903
 sixtyfour = sixtyfour.sort_values(by=['Unnamed: 3'], ascending = False)
 sixtyfourTotal = sixtyfour.sum(axis = 0, skipna = True)
 
-4pk = df[df['Unnamed: 2'].str.contains('4pk')]
+fourpk = df[df['Unnamed: 2'].str.contains('4pk')]
+fourpk = fourpk.astype({'Unnamed: 3' : 'int'})
+fourpk["BBLS"] = fourpk['Unnamed: 3'] * 0.016129035
+fourpkTotal = fourpk.sum(axis = 0, skipna = True)
+
+sixpk = df[df['Unnamed: 2'].str.contains('6pk')]
+sixpk = sixpk.astype({'Unnamed: 3' : 'int'})
+sixpk["BBLS"] = sixpk['Unnamed: 3'] * 0.01814516
+sixpkTotal = sixpk.sum(axis = 0, skipna = True)
+
+twelve = df[df['Unnamed: 2'].str.contains('12oz')]
+twelve = twelve.astype({'Unnamed: 3' : 'int'})
+twelve["BBLS"] = twelve['Unnamed: 3'] * 0.00302419354
+twelveTotal = twelve.sum(axis = 0, skipna = True)
+
+sixteen = df[df['Unnamed: 2'].str.contains('16oz')]
+sixteen = sixteen.astype({'Unnamed: 3' : 'int'})
+sixteen["BBLS"] = sixteen['Unnamed: 3'] * 0.00403225806
+sixteenTotal = sixteen.sum(axis = 0, skipna = True)
 
 total = df[df['Unnamed: 2'].str.contains('Tot')]
 
 vTotal = pintTotal[2] + halfTotal[2] + mugTotal[2] + ptrTotal[2] + thirtytwoTotal[2] + sixtyfourTotal[2]
+
+pTotal = fourpkTotal[2] + sixpkTotal[2] + twelveTotal[2] + sixteenTotal[2]
 
 #print(df.columns) #prints the names of the columns in the DataFrame
 #print(half)
@@ -74,10 +94,20 @@ vTotal = pintTotal[2] + halfTotal[2] + mugTotal[2] + ptrTotal[2] + thirtytwoTota
 #print(ptr)
 #print(thirtytwo)
 #print(sixtyfour)
-print(4pk)
+#print(fourpk)
+#print(sixpk)
+#print(twelve)
+#print(sixteen)
 #print(total)
 
 #print(halfTotal)
 #print(pintTotal[2])
 #print(mugTotal)
+#print(fourpkTotal[2])
+#print(sixpkTotal[2])
+#print(twelveTotal[2])
+#print(sixteenTotal[2])
+
 print(vTotal)
+print(pTotal)
+print(vTotal + pTotal)
