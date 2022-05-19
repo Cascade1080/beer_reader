@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv('Total Beer Sales March_2.0.csv') #defines csv file
+df = pd.read_csv('Total Beer Sales April.pmx.csv') #defines csv file
 df = df.dropna() #drops all NaN entries
 del df['1 - Frothy Beard Brewing 1401 Sam Rittenburg Blvd.  '] #delets the first colulmn
 df.drop('Unnamed: 1', inplace=True, axis =1) #deletes unnamed column 1
@@ -39,42 +39,42 @@ pintTotal = pintF.sum(axis = 0, skipna = True) # sums the total bbls in pint dat
 #########################################################################################################
 mug = df[df['Unnamed: 2'].str.contains('Mug')]
 mug = mug.astype({'Unnamed: 3':'int'})
-mug["BBLS"] = mug['Unnamed: 3']*0.00554435
+mug["BBLS"] = mug['Unnamed: 3']*0.00554435#print(mugTotal)
 mug = mug.sort_values(by=['Unnamed: 3'], ascending = False)
+mugTotal = mug.sum(axis = 0, skipna = True)
 
 ptr = df[df['Unnamed: 2'].str.contains('PTR')]
 ptr = ptr.astype({'Unnamed: 3':'int'})
 ptr["BBLS"] = ptr['Unnamed: 3']*0.01612903
 ptr = ptr.sort_values(by=['Unnamed: 3'], ascending = False)
+ptrTotal = ptr.sum(axis = 0, skipna = True)
 
 thirtytwo = df[df['Unnamed: 2'].str.contains('32oz')]
 thirtytwo = thirtytwo.astype({'Unnamed: 3':'int'})
 thirtytwo["BBLS"] = thirtytwo['Unnamed: 3']*0.00806452
 thirtytwo = thirtytwo.sort_values(by=['Unnamed: 3'], ascending = False)
+thirtytwoTotal = thirtytwo.sum(axis = 0, skipna = True)
 
 sixtyfour = df[df['Unnamed: 2'].str.contains('64oz')]
 sixtyfour = sixtyfour.astype({'Unnamed: 3':'int'})
 sixtyfour["BBLS"] = sixtyfour['Unnamed: 3']*0.01612903
 sixtyfour = sixtyfour.sort_values(by=['Unnamed: 3'], ascending = False)
+sixtyfourTotal = sixtyfour.sum(axis = 0, skipna = True)
 
 total = df[df['Unnamed: 2'].str.contains('Tot')]
 
-andale = df[df['Unnamed: 2'].str.contains('Andale')]
+vTotal = pintTotal[2] + halfTotal[2] + mugTotal[2] + ptrTotal[2] + thirtytwoTotal[2] + sixtyfourTotal[2]
 
 #print(df.columns) #prints the names of the columns in the DataFrame
-print(half)
+#print(half)
 #print(pintF)
-print(halfTotal)
-#print(pintTotal)
-#print(removesPTR)
-#print(pnt)
 #print(mug)
 #print(ptr)
 #print(thirtytwo)
 #print(sixtyfour)
 #print(total)
-#print(mug.dtypes)
-#print(half['Unnamed: 3']*2)
-#print(andale)
 
-#print(pint2.sum(axis = 0, skipna = True))
+#print(halfTotal)
+#print(pintTotal[2])
+#print(mugTotal)
+print(vTotal)
