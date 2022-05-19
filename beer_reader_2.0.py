@@ -61,6 +61,8 @@ sixtyfour["BBLS"] = sixtyfour['Unnamed: 3']*0.01612903
 sixtyfour = sixtyfour.sort_values(by=['Unnamed: 3'], ascending = False)
 sixtyfourTotal = sixtyfour.sum(axis = 0, skipna = True)
 
+4pk = df[df['Unnamed: 2'].str.contains('4pk')]
+
 total = df[df['Unnamed: 2'].str.contains('Tot')]
 
 vTotal = pintTotal[2] + halfTotal[2] + mugTotal[2] + ptrTotal[2] + thirtytwoTotal[2] + sixtyfourTotal[2]
@@ -72,6 +74,7 @@ vTotal = pintTotal[2] + halfTotal[2] + mugTotal[2] + ptrTotal[2] + thirtytwoTota
 #print(ptr)
 #print(thirtytwo)
 #print(sixtyfour)
+print(4pk)
 #print(total)
 
 #print(halfTotal)
